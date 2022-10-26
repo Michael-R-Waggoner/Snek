@@ -1,29 +1,71 @@
-from turtle import Turtle, Screen
+import random
+from turtle import Screen, Turtle
+import time
+from typing import List, Any
+
 
 class SnakeBrain:
+    segments = []
+
     def __init__(self):
-        global length
-        length = 3
-        global speed
-        speed = 20
-        global segments
-        segments = []
-        global game_is_on
-        game_is_on = True
-    def make_snake(self,starting_positions):
-        for i in range(1,length):
+        self.length = 3
+        self.speed = 10
+        self.game_is_on = True
+        self.heading = 0
+        self.starting_positions = [(0, 0), (-20, 0), (-40, 0)]
+        self.make_snake(positions=self.starting_positions)
+        self.screen = Screen()
+        self.head_pos = self.segments[0].pos()
+
+
+    def up(self):
+        if self.segments[0].heading() != 270:
+            self.segments[0].seth(90)
+
+    def down(self):
+        if self.segments[0].heading() != 90:
+            self.segments[0].seth(270)
+
+    def left(self):
+        if self.segments[0].heading() != 0:
+            self.segments[0].seth(180)
+
+    def right(self):
+        if self.segments[0].heading() != 180:
+            self.segments[0].seth(0)
+
+    def play_snake(self):
+        pos_list = []
+        for num in range(1, self.length):
+            if num > len(self.segments) - 1:
+                new_turtle = Turtle("square")
+                new_turtle.penup()
+                new_turtle.color("white")
+                self.segments.append(new_turtle)
+        for segment in self.segments:
+            old_pos = segment.pos()
+            pos_list.append(old_pos)
+        self.segments[0].forward(self.speed)
+        self.screen.onkey(self.up, "w")
+        self.screen.onkey(self.down, "s")
+        self.screen.onkey(self.left, "a")
+        self.screen.onkey(self.right, "d")
+        for num in range(1, self.length):
+            new_pos = pos_list[num - 1]
+            self.segments[num].goto(new_pos)
+        if self.segments[0].xcor() > 300 or self.segments[0].xcor() < -300:
+            self.game_is_on = False
+            print("Game Over")
+            screen.bye()
+        if self.segments[0].ycor() > 300 or self.segments[0].ycor() < -300:
+            self.game_is_on = False
+            print("Game Over")
+            screen.bye()
+
+    def make_snake(self, positions):
+        for position in positions:
             new_turtle = Turtle("square")
             new_turtle.penup()
             new_turtle.color("white")
-            for position in starting_positions:
-                new_turtle.goto(position)
-                segments.append(new_turtle)
-    def play_snake(self):
-        while game_is_on:
-            screen.update()
-            time.sleep(0.1)
-            segments[0].forward(speed)
-            for int in range(1, length-1):
-                segments[int].setpos( segments[int - 1].pos)
-
-
+            new_turtle.goto(position)
+            self.segments.append(new_turtle)

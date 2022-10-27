@@ -1,9 +1,10 @@
-import random
-from turtle import Screen, Turtle
+
 import time
-from SnakeBrain import SnakeBrain
+from turtle import Screen
+
 from Food import Food
 from ScoreBoard import ScoreBoard
+from SnakeBrain import SnakeBrain
 
 screen = Screen()
 screen.setup(width=600, height=600)
@@ -36,10 +37,8 @@ while snake.game_is_on:
     if snake.segments[0].ycor() > 300 or snake.segments[0].ycor() < -300:
         snake.game_is_on = False
         scoreboard.game_over()
-    for segment in snake.segments:
-        if segment == snake.head:
-            pass
-        elif snake.head.distance(segment) < 5:
+    for segment in snake.segments[1:]:
+        if snake.head.distance(segment) < 5:
             snake.game_is_on = False
             scoreboard.game_over()
 

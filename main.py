@@ -24,23 +24,23 @@ while snake.game_is_on:
     screen.update()
     time.sleep(0.05)
     snake.play_snake()
-    score = snake.length - 3
-    scoreboard.make_scoreboard(score=score)
+    scoreboard.make_scoreboard()
     if snake.segments[0].distance(food.food_location) < 20:
         food.clearstamps()
         snake.length += 1
+        scoreboard.score += 1
         food.make_food()
         scoreboard.clear()
     if snake.segments[0].xcor() > 300 or snake.segments[0].xcor() < -300:
-        snake.game_is_on = False
-        scoreboard.game_over()
+        scoreboard.reset()
+        snake.reset()
     if snake.segments[0].ycor() > 300 or snake.segments[0].ycor() < -300:
-        snake.game_is_on = False
-        scoreboard.game_over()
+        scoreboard.reset()
+        snake.reset()
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 5:
-            snake.game_is_on = False
-            scoreboard.game_over()
+            scoreboard.reset()
+            snake.reset()
 
 
 

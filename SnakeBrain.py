@@ -62,3 +62,11 @@ class SnakeBrain:
             new_turtle.color("white")
             new_turtle.goto(position)
             self.segments.append(new_turtle)
+
+    def reset(self):
+        for segment in self.segments:
+            segment.goto(1000,1000)
+        self.length = 3
+        self.segments.clear()
+        self.make_snake(positions=self.starting_positions)
+        self.head = self.segments[0]

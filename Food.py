@@ -1,8 +1,7 @@
 from turtle import Turtle
 import random
 
-from SnakeBrain import SnakeBrain
-snake = SnakeBrain()
+
 class Food(Turtle):
     def __init__(self):
         super().__init__()

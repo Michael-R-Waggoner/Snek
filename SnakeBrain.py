@@ -15,7 +15,7 @@ class SnakeBrain:
         self.starting_positions = [(0, 0), (-20, 0), (-40, 0)]
         self.make_snake(positions=self.starting_positions)
         self.screen = Screen()
-        self.head_pos = self.segments[0].pos()
+        self.head = self.segments[0]
 
 
     def up(self):
@@ -53,14 +53,7 @@ class SnakeBrain:
         for num in range(1, self.length):
             new_pos = pos_list[num - 1]
             self.segments[num].goto(new_pos)
-        if self.segments[0].xcor() > 300 or self.segments[0].xcor() < -300:
-            self.game_is_on = False
-            print("Game Over")
-            screen.bye()
-        if self.segments[0].ycor() > 300 or self.segments[0].ycor() < -300:
-            self.game_is_on = False
-            print("Game Over")
-            screen.bye()
+
 
     def make_snake(self, positions):
         for position in positions:

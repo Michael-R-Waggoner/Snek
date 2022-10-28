@@ -7,7 +7,7 @@ class ScoreBoard(Turtle):
         self.hideturtle()
         self.color("white")
         self.score = 0
-        self.high_score = number
+        self.high_score = 0
 
 
     def make_scoreboard(self):
@@ -18,7 +18,10 @@ class ScoreBoard(Turtle):
 
     def reset(self):
         if self.score > self.high_score:
-            self.high_score = self.score
+            with open("High_Score", mode="w") as file:
+                file.write(f"{self.score}")
+            with open("High_Score") as file:
+                self.high_score = int(file.read())
         self.score = 0
     #def game_over(self):
      #   self.penup()
